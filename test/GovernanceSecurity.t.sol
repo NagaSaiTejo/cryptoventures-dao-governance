@@ -14,7 +14,7 @@ contract GovernanceSecurityTest is Test {
     GovernanceToken token;
     DAOAccessControl access;
     TreasuryVault vault;
-    
+
     address public admin = makeAddr("admin");
     address public attacker = makeAddr("attacker");
 
@@ -27,8 +27,8 @@ contract GovernanceSecurityTest is Test {
     }
 
     function testAntiWhaleMechanism() public pure {
-        uint256 smallStake = 100 * 10**18;
-        uint256 whaleStake = 10000 * 10**18;
+        uint256 smallStake = 100 * 10 ** 18;
+        uint256 whaleStake = 10000 * 10 ** 18;
 
         uint256 smallPower = VotingPowerMath.calculatePower(smallStake);
         uint256 whalePower = VotingPowerMath.calculatePower(whaleStake);
@@ -38,7 +38,7 @@ contract GovernanceSecurityTest is Test {
 
     function testUnauthorizedWithdrawalFails() public {
         vm.deal(address(vault), 10 ether);
-        
+
         vm.prank(attacker);
         vm.expectRevert("TreasuryVault: caller is not an executor");
         vault.withdraw(address(0), payable(attacker), 10 ether);
