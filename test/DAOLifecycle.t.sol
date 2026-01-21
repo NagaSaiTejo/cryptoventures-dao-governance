@@ -28,7 +28,6 @@ contract DAOLifecycleTest is Test {
         access = new DAOAccessControl(admin);
         token = new GovernanceToken();
 
-        // ✅ FIX: properly declared arrays
         address;
         address;
 
@@ -59,7 +58,6 @@ contract DAOLifecycleTest is Test {
     }
 
     function testCompleteProposalLifecycle() public {
-        // ✅ FIX: properly declared arrays
         address;
         targets[0] = address(vault);
 
