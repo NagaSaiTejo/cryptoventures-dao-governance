@@ -43,13 +43,13 @@ contract DAOLifecycleTest is Test {
         timelock.grantRole(timelock.EXECUTOR_ROLE(), address(0));
 
         vm.deal(address(vault), 1000 ether);
-        // Distribute 50,000 tokens (5% of supply) to meet the 4% quorum requirement
         token.transfer(voter1, 50000 * 10 ** 18);
         vm.stopPrank();
 
         vm.prank(voter1);
         token.delegate(voter1);
     }
+
     /**
      * @notice Tests Requirement: Proposals must go through a complete lifecycle.
      */
@@ -61,8 +61,7 @@ contract DAOLifecycleTest is Test {
         values[0] = 0;
 
         bytes;
-        calldatas[0] =
-            abi.encodeWithSelector(vault.withdraw.selector, address(0), recipient, 5 ether);
+        calldatas[0] = abi.encodeWithSelector(vault.withdraw.selector, address(0), recipient, 5 ether);
 
         string memory description = "Small grant for community tools";
 
@@ -85,6 +84,7 @@ contract DAOLifecycleTest is Test {
 
         uint256 initialRecipientBalance = recipient.balance;
         uint256 initialVaultBalance = vault.getBalance(address(0));
+
         governor.execute(proposalId);
 
         assertEq(uint256(governor.state(proposalId)), uint256(IGovernor.ProposalState.Executed));
